@@ -1,0 +1,3 @@
+plugin/i3-window-title.desktop.in
+plugin/i3wm-window-title.c
+plugin/i3wm-window-title.h
