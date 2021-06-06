@@ -75,13 +75,8 @@ void on_title_event(i3ipcConnection* conn, i3ipcGenericEvent* e, gpointer user)
 }
 
 static
-void i3constructor(XfcePanelPlugin* plugin) {
-  i3WindowTitlePlugin* i3wmtp = g_slice_new0(i3WindowTitlePlugin);
-
-  GtkWidget* label = gtk_label_new("");
-
-  i3wmtp->title = GTK_LABEL(label);
-
+void init_connection(i3WindowTitlePlugin* i3wmtp)
+{
   i3wmtp->conn = i3ipc_connection_new(NULL, NULL);
 
   i3ipcCommandReply* reply = i3ipc_connection_subscribe(i3wmtp->conn, I3IPC_EVENT_WINDOW, NULL);
@@ -93,6 +88,17 @@ void i3constructor(XfcePanelPlugin* plugin) {
   }
 
   i3ipc_command_reply_free(reply);
+}
+
+static
+void i3constructor(XfcePanelPlugin* plugin) {
+  i3WindowTitlePlugin* i3wmtp = g_slice_new0(i3WindowTitlePlugin);
+
+  GtkWidget* label = gtk_label_new("");
+
+  i3wmtp->title = GTK_LABEL(label);
+
+  init_connection(i3wmtp);
 
   g_signal_connect(G_OBJECT(plugin), "size-changed", G_CALLBACK(size_changed), i3wmtp);
 
