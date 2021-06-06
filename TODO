@@ -1,4 +1,3 @@
-- handle reloading
 - handle reconnection on i3wm reloading
 - allow to set text orientation
 - allow to set style through CSS
