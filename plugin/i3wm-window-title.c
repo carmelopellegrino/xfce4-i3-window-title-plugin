@@ -91,6 +91,13 @@ void init_connection(i3WindowTitlePlugin* i3wmtp)
 }
 
 static
+void on_reconnect(GtkMenuItem* mitem, i3WindowTitlePlugin* i3wmtp)
+{
+  g_object_unref(i3wmtp->conn);
+  init_connection(i3wmtp);
+}
+
+static
 void i3constructor(XfcePanelPlugin* plugin) {
   i3WindowTitlePlugin* i3wmtp = g_slice_new0(i3WindowTitlePlugin);
 
@@ -102,6 +109,10 @@ void i3constructor(XfcePanelPlugin* plugin) {
 
   g_signal_connect(G_OBJECT(plugin), "size-changed", G_CALLBACK(size_changed), i3wmtp);
 
+  GtkWidget* reconnect_button = gtk_menu_item_new_with_label("Reconnect");
+  xfce_panel_plugin_menu_insert_item(plugin, GTK_MENU_ITEM(reconnect_button));
+  gtk_widget_show(GTK_WIDGET(reconnect_button));
+  g_signal_connect(G_OBJECT(reconnect_button), "activate", G_CALLBACK(on_reconnect), i3wmtp);
   gtk_container_add(GTK_CONTAINER(plugin), label);
   gtk_widget_show_all(label);
   xfce_panel_plugin_set_expand(XFCE_PANEL_PLUGIN(plugin), TRUE);
