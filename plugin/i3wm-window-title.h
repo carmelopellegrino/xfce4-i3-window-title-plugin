@@ -34,8 +34,6 @@ typedef struct
   GtkLabel        *title;
 
   i3ipcConnection *conn;
-
-  gsize           text_space;
 } i3WindowTitlePlugin;
 
 G_END_DECLS

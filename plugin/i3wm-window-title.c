@@ -48,11 +48,10 @@ static
 gboolean show_title(i3WindowTitlePlugin* i3wmtp)
 {
   char const* current = focused_window_title(i3wmtp->conn);
-  gsize const text_space = i3wmtp->text_space;
   gsize const current_len = current == NULL ? 0 : strlen(current);
 
   static char buffer[1024];
-  gsize const max_len = 1 + min(min(text_space, current_len), 1023);
+  gsize const max_len = 1 + min(current_len, 1023);
 
   snprintf(buffer, max_len, "%s", current);
   gtk_label_set_text(i3wmtp->title, buffer);
@@ -60,12 +59,6 @@ gboolean show_title(i3WindowTitlePlugin* i3wmtp)
   return TRUE;
 }
 
-static
-gboolean size_changed(XfcePanelPlugin *plugin, gint size, i3WindowTitlePlugin* i3wmtp)
-{
-  i3wmtp->text_space = size;
-  return show_title(i3wmtp);
-}
 
 static
 void on_title_event(i3ipcConnection* conn, i3ipcGenericEvent* e, gpointer user)
@@ -107,7 +100,6 @@ void i3constructor(XfcePanelPlugin* plugin) {
 
   init_connection(i3wmtp);
 
-  g_signal_connect(G_OBJECT(plugin), "size-changed", G_CALLBACK(size_changed), i3wmtp);
 
   GtkWidget* reconnect_button = gtk_menu_item_new_with_label("Reconnect");
   xfce_panel_plugin_menu_insert_item(plugin, GTK_MENU_ITEM(reconnect_button));
