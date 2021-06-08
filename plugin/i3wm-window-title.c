@@ -54,7 +54,7 @@ gboolean show_title(i3WindowTitlePlugin* i3wmtp)
   static char buffer[1024];
   gsize const max_len = 1 + min(min(text_space, current_len), 1023);
 
-  snprintf(buffer, max_len , "%s", current);
+  snprintf(buffer, max_len, "%s", current);
   gtk_label_set_text(i3wmtp->title, buffer);
 
   return TRUE;
