@@ -49,7 +49,7 @@ gboolean show_title(i3WindowTitlePlugin* i3wmtp)
 {
   char const* current = focused_window_title(i3wmtp->conn);
   gsize const text_space = i3wmtp->text_space;
-  gsize const current_len = current == NULL ? 0 : strlen(current);
+  gsize const current_len = current == NULL ? 0 : (strlen(current) + 1);
 
   static char buffer[1024];
   gsize const max_len = min(min(text_space, current_len), 1024);
