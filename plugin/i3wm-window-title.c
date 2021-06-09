@@ -97,6 +97,8 @@ void i3constructor(XfcePanelPlugin* plugin) {
   GtkWidget* label = gtk_label_new("");
 
   i3wmtp->title = GTK_LABEL(label);
+  gtk_label_set_xalign(i3wmtp->title, 0.);
+  gtk_label_set_ellipsize(i3wmtp->title, PANGO_ELLIPSIZE_END);
 
   init_connection(i3wmtp);
 
