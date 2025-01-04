@@ -26,11 +26,7 @@ G_BEGIN_DECLS
 
 typedef struct
 {
-  XfcePanelPlugin *plugin;
-
   /* panel widgets */
-  GtkWidget       *ebox;
-  GtkWidget       *hvbox;
   GtkLabel        *title;
 
   i3ipcConnection *conn;
