@@ -30,41 +30,10 @@
 static void i3constructor(XfcePanelPlugin *plugin);
 
 static
-char const* focused_window_title(i3ipcConnection* conn)
-{
-  i3ipcCon* root = i3ipc_connection_get_tree(conn, NULL);
-  i3ipcCon* focused = i3ipc_con_find_focused(root);
-
-  return i3ipc_con_get_name(focused);
-}
-
-static
-gsize min(gsize a, gsize b)
-{
-  return a > b ? b : a;
-}
-
-static
-gboolean show_title(i3WindowTitlePlugin* i3wmtp)
-{
-  char const* current = focused_window_title(i3wmtp->conn);
-  gsize const current_len = current == NULL ? 0 : strlen(current);
-
-  static char buffer[1024];
-  gsize const max_len = 1 + min(current_len, 1023);
-
-  snprintf(buffer, max_len, "%s", current);
-  gtk_label_set_text(i3wmtp->title, buffer);
-
-  return TRUE;
-}
-
-
-static
-void on_title_event(i3ipcConnection* conn, i3ipcGenericEvent* e, gpointer user)
+void on_window_event(i3ipcConnection *conn, i3ipcWindowEvent *e, gpointer user)
 {
   i3WindowTitlePlugin* i3wmtp = (i3WindowTitlePlugin*) user;
-  show_title(i3wmtp);
+  gtk_label_set_text(i3wmtp->title, i3ipc_con_get_name(e->container));
 }
 
 static
@@ -75,7 +44,7 @@ void init_connection(i3WindowTitlePlugin* i3wmtp)
   i3ipcCommandReply* reply = i3ipc_connection_subscribe(i3wmtp->conn, I3IPC_EVENT_WINDOW, NULL);
 
   if (reply->success) {
-    g_signal_connect_after(i3wmtp->conn, "window", G_CALLBACK(on_title_event), i3wmtp);
+    g_signal_connect_after(i3wmtp->conn, "window", G_CALLBACK(on_window_event), i3wmtp);
   } else {
     // booooh!
   }
