@@ -81,7 +81,6 @@ void i3constructor(XfcePanelPlugin* plugin) {
 
   init_connection(i3wmtp);
 
-
   GtkWidget* reconnect_button = gtk_menu_item_new_with_label("Reconnect");
   xfce_panel_plugin_menu_insert_item(plugin, GTK_MENU_ITEM(reconnect_button));
   gtk_widget_show(GTK_WIDGET(reconnect_button));
