@@ -60,8 +60,18 @@ void on_reconnect(GtkMenuItem* mitem, i3WindowTitlePlugin* i3wmtp)
 }
 
 static
+void i3free(XfcePanelPlugin *plugin, i3WindowTitlePlugin *i3wmtp)
+{
+  gtk_widget_destroy(GTK_WIDGET(i3wmtp->title));
+  g_object_unref(i3wmtp->conn);
+  g_slice_free(i3WindowTitlePlugin, i3wmtp);
+}
+
+static
 void i3constructor(XfcePanelPlugin* plugin) {
   i3WindowTitlePlugin* i3wmtp = g_slice_new0(i3WindowTitlePlugin);
+
+  g_signal_connect(G_OBJECT(plugin), "free-data", G_CALLBACK(i3free), i3wmtp);
 
   GtkWidget* label = gtk_label_new("");
 
