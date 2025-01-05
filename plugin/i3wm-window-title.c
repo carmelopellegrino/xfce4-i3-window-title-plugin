@@ -108,8 +108,8 @@ void i3constructor(XfcePanelPlugin* plugin) {
   gtk_widget_show(GTK_WIDGET(reconnect_button));
   g_signal_connect(G_OBJECT(reconnect_button), "activate", G_CALLBACK(on_reconnect), i3wmtp);
   gtk_container_add(GTK_CONTAINER(plugin), label);
-  gtk_widget_show_all(label);
-  xfce_panel_plugin_set_expand(XFCE_PANEL_PLUGIN(plugin), TRUE);
+  gtk_widget_show_all(GTK_WIDGET(plugin));
+  xfce_panel_plugin_set_expand(plugin, TRUE);
 }
 
 XFCE_PANEL_PLUGIN_REGISTER(i3constructor);
