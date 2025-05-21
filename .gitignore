@@ -39,9 +39,10 @@ intltool-update.in
 libtool
 ltmain.sh
 missing
-panel-plugin/.libs/
-panel-plugin/i3-workspaces.desktop
+plugin/.libs/
+plugin/i3-window-title.desktop
 po/.intltool-merge-cache
+po/.intltool-merge-cache.lock
 po/POTFILES
 po/stamp-it
 Makefile
