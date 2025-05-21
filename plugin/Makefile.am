@@ -18,6 +18,8 @@ plugindir = \
 libi3windowtitle_la_SOURCES = i3wm-window-title.h i3wm-window-title.c
 
 libi3windowtitle_la_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK_CFLAGS) \
 	$(LIBXFCE4UTIL_CFLAGS) \
 	$(LIBXFCE4UI_CFLAGS) \
 	$(LIBXFCE4PANEL_CFLAGS) \
