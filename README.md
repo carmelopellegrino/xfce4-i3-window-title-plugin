@@ -1,11 +1,9 @@
-An i3wm-aware xfce4-panel plugin
+# An i3wm-aware xfce4-panel plugin
 
 This `xfce4-panel` plugin shows the title of the currently focused window in an
 `i3wm` session.
 
-============
-Installation
-============
+## Installation
 
 To build from sources, you'll need the following dependencies installed:
 
@@ -29,9 +27,7 @@ sudo make install
 When installing on `ArchLinux`, you may want to use the `PKGBUILD` available on
 AUR: `xfce4-i3-window-title-plugin-git`.
 
-=====
-Usage
-=====
+## Usage
 
 To start using the plugin, start the xfce4-panel and add it to the panel.
 That's it. No further configuration is foreseen. Text is redered using the
