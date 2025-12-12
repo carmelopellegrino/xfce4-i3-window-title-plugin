@@ -63,7 +63,11 @@ void init_connection(i3WindowTitlePlugin* i3wmtp)
   if (reply->success) {
     i3ipcCon* root = i3ipc_connection_get_tree(i3wmtp->conn, NULL);
     i3ipcCon* focused = i3ipc_con_find_focused(root);
+
     gtk_label_set_text(i3wmtp->title, i3ipc_con_get_name(focused));
+
+    i3ipc_con_finalize(focused);
+    i3ipc_con_finalize(root);
 
     g_signal_connect_after(i3wmtp->conn, "window", G_CALLBACK(on_window_event), i3wmtp);
   } else {
