@@ -35,7 +35,14 @@ void on_window_event(i3ipcConnection *conn, i3ipcWindowEvent *e, gpointer user)
   i3WindowTitlePlugin* i3wmtp = (i3WindowTitlePlugin*) user;
 
   if (strcmp(e->change, "close") == 0) {
-    gtk_label_set_text(i3wmtp->title, "");
+    i3ipcCon* root = i3ipc_connection_get_tree(conn, NULL);
+    i3ipcCon* focused = i3ipc_con_find_focused(root);
+
+    gtk_label_set_text(i3wmtp->title, i3ipc_con_get_name(focused));
+
+    i3ipc_con_finalize(focused);
+    i3ipc_con_finalize(root);
+
     return;
   }
 
