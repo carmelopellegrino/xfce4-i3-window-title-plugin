@@ -40,8 +40,8 @@ void on_window_event(i3ipcConnection *conn, i3ipcWindowEvent *e, gpointer user)
 
     gtk_label_set_text(i3wmtp->title, i3ipc_con_get_name(focused));
 
-    i3ipc_con_finalize(focused);
-    i3ipc_con_finalize(root);
+    g_free(focused);
+    g_free(root);
 
     return;
   }
@@ -73,8 +73,8 @@ void init_connection(i3WindowTitlePlugin* i3wmtp)
 
     gtk_label_set_text(i3wmtp->title, i3ipc_con_get_name(focused));
 
-    i3ipc_con_finalize(focused);
-    i3ipc_con_finalize(root);
+    g_free(focused);
+    g_free(root);
 
     g_signal_connect_after(i3wmtp->conn, "window", G_CALLBACK(on_window_event), i3wmtp);
   } else {
