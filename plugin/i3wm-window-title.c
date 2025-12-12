@@ -46,7 +46,10 @@ void on_window_event(i3ipcConnection *conn, i3ipcWindowEvent *e, gpointer user)
     return;
   }
 
-  gtk_label_set_text(i3wmtp->title, i3ipc_con_get_name(e->container));
+  if (strcmp(e->change, "focus") == 0 || strcmp(e->change, "title") == 0) {
+    gtk_label_set_text(i3wmtp->title, i3ipc_con_get_name(e->container));
+    return;
+  }
 }
 
 static
